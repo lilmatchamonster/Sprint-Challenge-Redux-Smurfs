@@ -7,6 +7,7 @@ import Axios from 'axios';
 export const SUCCESS = 'SUCCESS';
 export const FALURE = 'FALURE';
 export const LOADING = 'LOADING';
+export const ADDED = 'ADDED';
 
 
 /*
@@ -28,6 +29,22 @@ export function getSmufs() {
     .then(response => {
       console.log("Response: ", response.data)
       dispatch({ type: SUCCESS, smurfsGot: response.data})
+    })
+    .catch(error => {
+      console.log(error)
+      dispatch({type: FALURE, falureMessage: "Oops, something seems to have gone wrong :("})
+    })
+  }
+}
+
+export function addSmurf(addedSmurf) {
+  return dispatch => {
+    dispatch({ type: LOADING})
+
+    Axios.post('http://localhost:3333/smurfs', addedSmurf)
+    .then(response => {
+      console.log("Added response", response.data)
+      dispatch({ type: ADDED, added: response.data})
     })
     .catch(error => {
       console.log(error)

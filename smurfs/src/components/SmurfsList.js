@@ -3,13 +3,14 @@ import { connect } from 'react-redux';
 
 import Smurf from './Smurf';
 
+
 const SmurfsList = props => {
   return (
-    <ul>
-      {props.smurfs.map(individual => {
-        return <Smurf key={individual.name} aSmurf={individual} />;
+    <div>
+      {props.smurfs.map((individual, index) => {
+        return <Smurf key={index} aSmurf={individual} />
       })}
-    </ul>
+    </div>
   );
 };
 
