@@ -2,6 +2,14 @@
   Action Types Go Here!
   Be sure to export each action type so you can pull it into your reducer
 */
+import Axios from 'axios';
+
+export const SUCCESS = 'SUCCESS';
+export const FALURE = 'FALURE';
+export const LOADING = 'LOADING';
+export const ADDED = 'ADDED';
+export const REMOVE = 'REMOVE';
+
 
 /*
   For this project you'll need at least 2 action creators for the main portion,
@@ -13,3 +21,51 @@
    U - updateSmurf
    D - deleteSmurf
 */
+
+export function getSmufs() {
+  return dispatch => {
+    dispatch({ type: LOADING})
+
+    Axios.get('http://localhost:3333/smurfs')
+    .then(response => {
+      console.log("Response: ", response.data)
+      dispatch({ type: SUCCESS, smurfsGot: response.data})
+    })
+    .catch(error => {
+      console.log(error)
+      dispatch({type: FALURE, falureMessage: "Oops, something seems to have gone wrong :("})
+    })
+  }
+}
+
+export function addSmurf(addedSmurf) {
+  return dispatch => {
+    dispatch({ type: LOADING})
+
+    Axios.post('http://localhost:3333/smurfs', addedSmurf)
+    .then(response => {
+      console.log("Added response", response.data)
+      dispatch({ type: ADDED, added: response.data})
+    })
+    .catch(error => {
+      console.log(error)
+      dispatch({type: FALURE, falureMessage: "Oops, something seems to have gone wrong :("})
+    })
+  }
+}
+
+export function removeSmurf(id) {
+  return dispatch => {
+    dispatch({ type: LOADING})
+
+    Axios.delete(`http://localhost:3333/smurfs/${id}`)
+    .then(response => {
+      console.log("Removed response", response.data)
+      dispatch({ type: REMOVE, updated: response.data})
+    })
+    .catch(error => {
+      console.log(error)
+      dispatch({type: FALURE, falureMessage: "Oops, something seems to have gone wrong :("})
+    })
+  }
+}
