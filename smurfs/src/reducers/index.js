@@ -1,7 +1,7 @@
 /*
   Be sure to import in all of the action types from `../actions`
 */
-import { LOADING, SUCCESS, FALURE, ADDED } from '../actions';
+import { LOADING, SUCCESS, FALURE, ADDED, REMOVE } from '../actions';
 /*
  Your initial/default state for this project could *Although does not have to* look a lot like this
  {
@@ -36,6 +36,8 @@ function smurfReducer(state = initialState, action){
       return { ...state, loadingSmurfs: false, smurfs: [], error: action.falureMessage }
     case ADDED:
       return { ...state, loadingSmurfs: false, smurfs: action.added, error: null }
+    case REMOVE:
+      return { ...state, loadingSmurfs: false, smurfs: action.updated, error: null}
     default:
       return state;
   }

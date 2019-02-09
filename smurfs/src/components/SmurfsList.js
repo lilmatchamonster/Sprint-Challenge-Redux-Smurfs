@@ -2,11 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Smurf from './Smurf';
-
+import './App.css';
 
 const SmurfsList = props => {
   return (
-    <div>
+    <div className="smurfList">
       {props.smurfs.map((individual, index) => {
         return <Smurf key={index} aSmurf={individual} />
       })}

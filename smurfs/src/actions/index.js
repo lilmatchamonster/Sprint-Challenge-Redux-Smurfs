@@ -8,6 +8,7 @@ export const SUCCESS = 'SUCCESS';
 export const FALURE = 'FALURE';
 export const LOADING = 'LOADING';
 export const ADDED = 'ADDED';
+export const REMOVE = 'REMOVE';
 
 
 /*
@@ -45,6 +46,22 @@ export function addSmurf(addedSmurf) {
     .then(response => {
       console.log("Added response", response.data)
       dispatch({ type: ADDED, added: response.data})
+    })
+    .catch(error => {
+      console.log(error)
+      dispatch({type: FALURE, falureMessage: "Oops, something seems to have gone wrong :("})
+    })
+  }
+}
+
+export function removeSmurf(id) {
+  return dispatch => {
+    dispatch({ type: LOADING})
+
+    Axios.delete(`http://localhost:3333/smurfs/${id}`)
+    .then(response => {
+      console.log("Removed response", response.data)
+      dispatch({ type: REMOVE, updated: response.data})
     })
     .catch(error => {
       console.log(error)

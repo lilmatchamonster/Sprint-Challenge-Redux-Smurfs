@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { addSmurf } from '../actions';
+import './App.css';
 
 class AddSmurf extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class AddSmurf extends React.Component {
 
   render() {
     return (
-      <form onSubmit={(e) => {
+      <form className="addForm" onSubmit={(e) => {
         e.preventDefault();
         this.props.addSmurf(this.state)
         this.setState({ name: "", age: "", height: "" })
